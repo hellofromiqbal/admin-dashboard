@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -123,7 +122,7 @@ export default function DevelopmentTable() {
                           <BorderLinearProgress variant="determinate" sx={{ width: '80px' }} value={row.progress} />
                         </Box>
                         )
-                      : column.format && typeof row[column.id] !== 'undefined' // Check if value is defined before formatting
+                      : column.format && typeof row[column.id] !== 'undefined'
                       ? column.format(row[column.id])
                       : row[column.id]}
                   </TableCell>
