@@ -23,10 +23,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <Box sx={{ display: 'flex' }}>
-            <Box sx={{ width: '300px', height: '100vh' }}>
+            <Box sx={{ position: 'sticky', top: 0, width: '300px', height: '100vh' }}>
               <SideBar/>
             </Box>
-            <Box sx={{ width: 'calc(100vw - 300px)', height: '100vh', bgcolor: '#f4f8fe'}}>
+            <Box sx={{ width: 'calc(100vw - 300px)', minHeight: '100vh', bgcolor: '#f4f8fe'}}>
               {children}
             </Box>
           </Box>

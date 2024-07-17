@@ -24,7 +24,7 @@ const SideBar = () => {
   ];
 
   return (
-    <Box sx={{ height: '100%', p: '20px', bgcolor: '#fff' }}>
+    <Box sx={{ height: '100%', px: '20px', pt: '40px', pb: '20px', bgcolor: '#fff' }}>
       <Typography variant="h4" sx={{ mb: '20px', textAlign: 'center' }}>Dashboard</Typography>
       <Divider/>
       <Box sx={{ height: '90%', overflow: 'auto', scrollbarWidth: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -40,7 +40,7 @@ const SideBar = () => {
             </ListItem>
           ))}
         </List>
-        <Box sx={{ mt: { lg: '5rem' } }}>
+        <Box sx={{ mt: { lg: '4rem' } }}>
           <UpgradeToProCard/>
         </Box>
       </Box>
