@@ -4,7 +4,6 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -55,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Navbar() {
   return (
-    <Box sx={{ flexGrow: 1, position: 'sticky', top: '0px' }}>
+    <Box sx={{ flexGrow: 1, position: 'sticky', top: '0px', zIndex: '3' }}>
       <AppBar position="static" sx={{ p: '20px', backgroundColor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(30px)', boxShadow: 'none', color: 'black' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -90,9 +89,9 @@ export default function Navbar() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-            <NotificationsOutlined fontSize='small'/>
-            <InfoOutlined fontSize='small'/>
-            <Palette fontSize='small'/>
+            <NotificationsOutlined fontSize='small' sx={{ cursor: 'pointer' }}/>
+            <InfoOutlined fontSize='small' sx={{ cursor: 'pointer' }}/>
+            <Palette fontSize='small' sx={{ cursor: 'pointer' }}/>
             <Box sx={{ width: '40px', height: '40px', borderRadius: '100%', bgcolor: 'blue', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
               <Typography variant="subtitle2">AP</Typography>
             </Box>
