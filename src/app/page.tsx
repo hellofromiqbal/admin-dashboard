@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 export default function Home() {
   return (
-    <Box>
+    <Box sx={{ p: '20px' }}>
       <Typography>Hello World!</Typography>
     </Box>
   );
