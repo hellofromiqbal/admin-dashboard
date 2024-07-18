@@ -7,15 +7,19 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Adb, Apple, Window } from '@mui/icons-material';
+import { Adb, Add, Apple, Window, Delete } from '@mui/icons-material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Button, IconButton, styled, Typography } from '@mui/material';
+
+type DevelopmentTableProps = {
+  tableTitle: string;
+};
 
 interface Column {
-  id: 'name' | 'tech' | 'date' | 'progress';
+  id: 'name' | 'tech' | 'date' | 'progress' | 'action';
   label: string;
   minWidth?: number;
-  align?: 'left' | 'right';
+  align?: 'left' | 'center' | 'right';
   format?: (value: any) => string;
 };
 
@@ -27,11 +31,12 @@ const columns: readonly Column[] = [
     label: 'Date',
     minWidth: 170,
     align: 'left',
-    format: (value: string | number) => new Date(value).toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-    }),
+    format: (value: string | number) =>
+      new Date(value).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }),
   },
   {
     id: 'progress',
@@ -40,6 +45,7 @@ const columns: readonly Column[] = [
     align: 'left',
     format: (value: string | number) => `${value}%`,
   },
+  { id: 'action', label: 'Action', minWidth: 170, align: 'center' },
 ];
 
 interface Data {
@@ -53,24 +59,24 @@ function createData(
   name: string,
   tech: ('apple' | 'android' | 'windows')[],
   date: number,
-  progress: number,
+  progress: number
 ): Data {
   return { name, tech, date, progress };
 };
 
 const rows: Data[] = [
-  createData('Project Alpha', ["apple", "android", "windows"], Date.parse('2023-05-01'), 75.3),
-  createData('Project Beta', ["apple"], Date.parse('2023-06-15'), 50.4),
-  createData('Project Gamma', ["apple", "windows"], Date.parse('2023-07-20'), 90.7),
-  createData('Project Delta', ["apple", "android", "windows"], Date.parse('2023-08-10'), 65.8),
-  createData('Project Epsilon', ["apple", "windows"], Date.parse('2023-09-05'), 85.6),
-  createData('Project Zeta', ["apple", "android", "windows"], Date.parse('2023-10-12'), 40.3),
+  createData('Project Alpha', ['apple', 'android', 'windows'], Date.parse('2023-05-01'), 75.3),
+  createData('Project Beta', ['apple'], Date.parse('2023-06-15'), 50.4),
+  createData('Project Gamma', ['apple', 'windows'], Date.parse('2023-07-20'), 90.7),
+  createData('Project Delta', ['apple', 'android', 'windows'], Date.parse('2023-08-10'), 65.8),
+  createData('Project Epsilon', ['apple', 'windows'], Date.parse('2023-09-05'), 85.6),
+  createData('Project Zeta', ['apple', 'android', 'windows'], Date.parse('2023-10-12'), 40.3),
 ];
 
 const techIcons = {
-  apple: <Apple fontSize='small'/>,
-  android: <Adb fontSize='small'/>,
-  windows: <Window fontSize='small'/>,
+  apple: <Apple fontSize="small" />,
+  android: <Adb fontSize="small" />,
+  windows: <Window fontSize="small" />,
 };
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -85,53 +91,68 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-export default function DevelopmentTable() {
+export default function DevelopmentTable({ tableTitle }: DevelopmentTableProps) {
+  const [tableRows, setTableRows] = React.useState(rows);
+
+  const handleDelete = (index: number) => {
+    const newRows = tableRows.filter((_, i) => i !== index);
+    setTableRows(newRows);
+  };
+
   return (
-    <Box sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, rowIndex) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={rowIndex}>
+    <>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h5">{tableTitle}</Typography>
+        <Button variant="contained" size="small">
+          <Add />
+        </Button>
+      </Box>
+      <Box sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
                 {columns.map((column) => (
-                  <TableCell key={column.id} align={column.align}>
-                    {column.id === 'tech' && Array.isArray(row.tech)
-                      ? row.tech.map((tech, index) => (
+                  <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableRows.map((row, rowIndex) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={rowIndex}>
+                  {columns.map((column) => (
+                    <TableCell key={column.id} align={column.align}>
+                      {column.id === 'tech' && Array.isArray(row.tech) ? (
+                        row.tech.map((tech, index) => (
                           <React.Fragment key={index}>
                             {index > 0 && ' '}
                             {techIcons[tech]}
                           </React.Fragment>
                         ))
-                      : column.id === 'progress'
-                      ? (
+                      ) : column.id === 'progress' ? (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                           <Typography>{row.progress}%</Typography>
                           <BorderLinearProgress variant="determinate" sx={{ width: '80px' }} value={row.progress} />
                         </Box>
-                        )
-                      : column.format && typeof row[column.id] !== 'undefined'
-                      ? column.format(row[column.id])
-                      : row[column.id]}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+                      ) : column.id === 'action' ? (
+                        <IconButton onClick={() => handleDelete(rowIndex)}>
+                          <Delete />
+                        </IconButton>
+                      ) : column.format && typeof row[column.id] !== 'undefined' ? (
+                        column.format(row[column.id])
+                      ) : (
+                        row[column.id]
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   );
 };

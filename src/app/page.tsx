@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar/Navbar";
 import DevelopmentTable from "@/components/Tables/DevelopmentTable";
-import { Add } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 export default function Home() {
   return (
@@ -9,42 +8,18 @@ export default function Home() {
       <Navbar/>
       <Box sx={{ p: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', overflow: 'auto', minHeight: '500px', borderRadius: '20px', p: '20px', bgcolor: '#fff' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h5">Development Table</Typography>
-            <Button variant="contained" size="small">
-              <Add/>
-            </Button>
-          </Box>
-          <DevelopmentTable/>
+          <DevelopmentTable tableTitle="Development Table"/>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', overflow: 'auto', minHeight: '500px', borderRadius: '20px', p: '20px', bgcolor: '#fff' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h5">Check Table</Typography>
-            <Button variant="contained" size="small">
-              <Add/>
-            </Button>
-          </Box>
-          <DevelopmentTable/>
+          <DevelopmentTable tableTitle="Check Table"/>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', overflow: 'auto', minHeight: '500px', borderRadius: '20px', p: '20px', bgcolor: '#fff' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h5">4-Column Table</Typography>
-            <Button variant="contained" size="small">
-              <Add/>
-            </Button>
-          </Box>
-          <DevelopmentTable/>
+          <DevelopmentTable tableTitle="4-Column Table"/>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', overflow: 'auto', minHeight: '500px', borderRadius: '20px', p: '20px', bgcolor: '#fff' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h5">Complex Table</Typography>
-            <Button variant="contained" size="small">
-              <Add/>
-            </Button>
-          </Box>
-          <DevelopmentTable/>
+          <DevelopmentTable tableTitle="Complex Table"/>
         </Box>
       </Box>
     </Box>
   );
-}
+};
