@@ -16,6 +16,7 @@ import {
   addNewComplexTableData,
   removeComplexTableData
 } from '@/utils/redux/reducers/complexTableSlice'
+import { setModalVisibility } from '@/utils/redux/reducers/modalVisibility';
 
 type ComplexTableProps = {
   tableTitle: string;
@@ -76,7 +77,7 @@ export default function ComplexTable({ tableTitle }: ComplexTableProps) {
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">{tableTitle}</Typography>
-        <Button variant="contained" size="small">
+        <Button variant="contained" size="small" onClick={() => dispatch(setModalVisibility({ visibility: true, type: 'complex-table' }))}>
           <Add />
         </Button>
       </Box>
