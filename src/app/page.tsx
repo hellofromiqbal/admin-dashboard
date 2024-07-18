@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar/Navbar";
+import CheckTable from "@/components/Tables/CheckTable";
 import DevelopmentTable from "@/components/Tables/DevelopmentTable";
 import { Box } from "@mui/material";
 
@@ -11,7 +12,7 @@ export default function Home() {
           <DevelopmentTable tableTitle="Development Table"/>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', overflow: 'auto', minHeight: '500px', borderRadius: '20px', p: '20px', bgcolor: '#fff' }}>
-          <DevelopmentTable tableTitle="Check Table"/>
+          <CheckTable tableTitle="Check Table"/>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', overflow: 'auto', minHeight: '500px', borderRadius: '20px', p: '20px', bgcolor: '#fff' }}>
           <DevelopmentTable tableTitle="4-Column Table"/>
