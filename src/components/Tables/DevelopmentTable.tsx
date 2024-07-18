@@ -13,6 +13,7 @@ import { Box, Button, IconButton, Typography } from '@mui/material';
 import { RootState } from '@/utils/redux/store'; 
 import { removeDevelopmentTableData } from '@/utils/redux/reducers/developmentTableSlice'
 import ProgressValue from './ProgressValue/ProgressValue';
+import { setModalVisibility } from '@/utils/redux/reducers/modalVisibility';
 
 type DevelopmentTableProps = {
   tableTitle: string;
@@ -69,7 +70,7 @@ export default function DevelopmentTable({ tableTitle }: DevelopmentTableProps) 
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">{tableTitle}</Typography>
-        <Button variant="contained" size="small">
+        <Button variant="contained" size="small" onClick={() => dispatch(setModalVisibility({ visibility: true, type: 'development-table' }))}>
           <Add />
         </Button>
       </Box>
