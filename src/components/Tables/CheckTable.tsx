@@ -12,10 +12,8 @@ import { Add, Delete } from '@mui/icons-material';
 import { Box, Button, Checkbox, IconButton, Typography } from '@mui/material';
 import ProgressValue from './ProgressValue/ProgressValue';
 import { RootState } from '@/utils/redux/store'; 
-import {
-  addNewCheckTableData,
-  removeCheckTableData,
-} from '@/utils/redux/reducers/checkTableSlice'
+import { removeCheckTableData } from '@/utils/redux/reducers/checkTableSlice'
+import { setModalVisibility } from '@/utils/redux/reducers/modalVisibility';
 
 type CheckTableProps = {
   tableTitle: string;
@@ -60,7 +58,7 @@ export default function CheckTable({ tableTitle }: CheckTableProps) {
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">{tableTitle}</Typography>
-        <Button variant="contained" size="small">
+        <Button variant="contained" size="small" onClick={() => dispatch(setModalVisibility({ visibility: true, type: 'check-table' }))}>
           <Add />
         </Button>
       </Box>
