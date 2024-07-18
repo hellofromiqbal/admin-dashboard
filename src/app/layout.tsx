@@ -25,10 +25,10 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ReduxProvider>
             <Box sx={{ display: 'flex' }}>
-              <Box sx={{ position: 'sticky', top: 0, width: '300px', height: '100vh' }}>
+              <Box sx={{ position: 'sticky', top: 0, width: { xs: 0, lg: '300px' }, height: '100vh' }}>
                 <SideBar/>
               </Box>
-              <Box sx={{ width: 'calc(100vw - 300px)', minHeight: '100vh', bgcolor: '#f4f8fe'}}>
+              <Box sx={{ width: { xs: '100%', lg: 'calc(100vw - 300px)' }, minHeight: '100vh', bgcolor: '#f4f8fe'}}>
                 {children}
               </Box>
             </Box>

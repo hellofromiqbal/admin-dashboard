@@ -41,7 +41,7 @@ const ComplexDataForm = () => {
   };
 
   return (
-    <Paper elevation={4} sx={{ height: 'max-content', width: '50%', p: 2, bgcolor: 'white', borderRadius: '10px', display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'space-between' }}>
+    <Paper elevation={4} sx={{ height: 'max-content', width: { xs: '90%', md: '50%' }, p: 2, bgcolor: 'white', borderRadius: '10px', display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'space-between' }}>
       <Typography variant="h6" sx={{ textAlign: 'center' }}>Add Complex Data</Typography>
       <TextField name="name" label="Name" variant="outlined" value={formData.name} onChange={handleInputChange} />
       <TextField name="status" label="Status" variant="outlined" value={formData.status} onChange={handleInputChange} />
