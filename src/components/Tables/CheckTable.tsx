@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,6 +11,11 @@ import TableRow from '@mui/material/TableRow';
 import { Add, Delete } from '@mui/icons-material';
 import { Box, Button, Checkbox, IconButton, Typography } from '@mui/material';
 import ProgressValue from './ProgressValue/ProgressValue';
+import { RootState } from '@/utils/redux/store'; 
+import {
+  addNewCheckTableData,
+  removeCheckTableData,
+} from '@/utils/redux/reducers/checkTableSlice'
 
 type CheckTableProps = {
   tableTitle: string;
@@ -42,37 +48,12 @@ const columns: readonly Column[] = [
   { id: 'action', label: 'Action', minWidth: 170, align: 'center' },
 ];
 
-interface Data {
-  name: string;
-  progress: number;
-  quantity: number;
-  date: number;
-};
-
-function createData(
-  name: string,
-  progress: number,
-  quantity: number,
-  date: number
-): Data {
-  return { name, progress, quantity, date };
-};
-
-const rows: Data[] = [
-  createData('Product Alpha', 75.3, 120, Date.parse('2023-05-01')),
-  createData('Product Beta', 50.4, 80, Date.parse('2023-06-15')),
-  createData('Product Gamma', 90.7, 150, Date.parse('2023-07-20')),
-  createData('Product Delta', 65.8, 200, Date.parse('2023-08-10')),
-  createData('Product Epsilon', 85.6, 170, Date.parse('2023-09-05')),
-  createData('Product Zeta', 40.3, 60, Date.parse('2023-10-12')),
-];
-
 export default function CheckTable({ tableTitle }: CheckTableProps) {
-  const [tableRows, setTableRows] = React.useState(rows);
+  const dispatch = useDispatch();
+  const tableRows = useSelector((state: RootState) => state.checkTable.data);
 
   const handleDelete = (index: number) => {
-    const newRows = tableRows.filter((_, i) => i !== index);
-    setTableRows(newRows);
+    dispatch(removeCheckTableData(index));
   };
 
   return (
