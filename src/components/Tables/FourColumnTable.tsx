@@ -16,6 +16,7 @@ import {
   addNewFourColumnTableData,
   removeFourColumnTableData
 } from '@/utils/redux/reducers/fourColumnTableSlice'
+import { setModalVisibility } from '@/utils/redux/reducers/modalVisibility';
 
 type FourColumnTableProps = {
   tableTitle: string;
@@ -55,15 +56,6 @@ interface Data {
   date: number;
 };
 
-// function createData(
-//   name: string,
-//   progress: number,
-//   quantity: number,
-//   date: number
-// ): Data {
-//   return { name, progress, quantity, date };
-// };
-
 export default function FourColumnTable({ tableTitle }: FourColumnTableProps) {
   const dispatch = useDispatch();
   const tableRows = useSelector((state: RootState) => state.fourColumnTable.data);
@@ -72,16 +64,11 @@ export default function FourColumnTable({ tableTitle }: FourColumnTableProps) {
     dispatch(removeFourColumnTableData(index));
   };
 
-  // const handleAdd = () => {
-  //   const newData = createData('New Product', 0, 0, Date.now());
-  //   dispatch(addNewFourColumnTableData(newData));
-  // };
-
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h5">{tableTitle}</Typography>
-        <Button variant="contained" size="small">
+        <Button variant="contained" size="small" onClick={() => dispatch(setModalVisibility({ visibility: true, type: 'four-column-table' }))}>
           <Add />
         </Button>
       </Box>

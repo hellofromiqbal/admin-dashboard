@@ -12,10 +12,7 @@ import { Add, Cancel, CheckCircle, Delete, ErrorOutline } from '@mui/icons-mater
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import ProgressValue from './ProgressValue/ProgressValue';
 import { RootState } from '@/utils/redux/store'; 
-import {
-  addNewComplexTableData,
-  removeComplexTableData
-} from '@/utils/redux/reducers/complexTableSlice'
+import { removeComplexTableData } from '@/utils/redux/reducers/complexTableSlice'
 import { setModalVisibility } from '@/utils/redux/reducers/modalVisibility';
 
 type ComplexTableProps = {
@@ -45,15 +42,6 @@ interface Data {
   progress: number;
 };
 
-function createData(
-  name: string,
-  status: string,
-  date: string,
-  progress: number
-): Data {
-  return { name, status, date, progress };
-};
-
 export default function ComplexTable({ tableTitle }: ComplexTableProps) {
   const dispatch = useDispatch();
   const tableRows = useSelector((state: RootState) => state.complexTable.data);
@@ -61,11 +49,6 @@ export default function ComplexTable({ tableTitle }: ComplexTableProps) {
   const handleDelete = (index: number) => {
     dispatch(removeComplexTableData(index));
   };
-
-  // const handleAdd = () => {
-  //   const newData = createData('New Product', 'pending', '2023-11-01', 0); // Example data, adjust as needed
-  //   dispatch(addNewComplexTableData(newData));
-  // };
 
   const statusIcons: { [key: string]: JSX.Element } = {
     approved: <CheckCircle fontSize="small" color="success" />,
