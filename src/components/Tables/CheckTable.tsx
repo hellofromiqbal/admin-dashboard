@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Add, Delete } from '@mui/icons-material';
 import { Box, Button, Checkbox, IconButton, Typography } from '@mui/material';
+import ProgressValue from './ProgressValue/ProgressValue';
 
 type CheckTableProps = {
   tableTitle: string;
@@ -105,7 +106,7 @@ export default function CheckTable({ tableTitle }: CheckTableProps) {
                           <Typography variant="body2">{row.name}</Typography>
                         </Box>
                       ) : column.id === 'progress' ? (
-                        <Typography variant="body2">{row.progress}%</Typography>
+                        <ProgressValue value={row.progress}/>
                       ) : column.id === 'action' ? (
                         <IconButton onClick={() => handleDelete(rowIndex)}>
                           <Delete />

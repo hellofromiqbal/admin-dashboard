@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import { Add, CheckCircle, Cancel, ErrorOutline, Delete } from '@mui/icons-material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Box, Button, IconButton, styled, Typography } from '@mui/material';
+import ProgressValue from './ProgressValue/ProgressValue';
 
 type ComplexTableProps = {
   tableTitle: string;
@@ -130,7 +131,7 @@ export default function ComplexTable({ tableTitle }: ComplexTableProps) {
                           <Typography variant="body2">{row.status}</Typography>
                         </Box>
                       ) : column.id === 'progress' ? (
-                        <BorderLinearProgress variant="determinate" sx={{ width: '80px' }} value={row.progress} />
+                        <ProgressValue value={row.progress} showProgressBar={true} showProgressPercentage={false}/>
                       ) : column.id === 'action' ? (
                         <IconButton onClick={() => handleDelete(rowIndex)}>
                           <Delete />

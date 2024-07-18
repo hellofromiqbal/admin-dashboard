@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Add, Delete } from '@mui/icons-material';
 import { Box, Button, IconButton, Typography } from '@mui/material';
+import ProgressValue from './ProgressValue/ProgressValue';
 
 type FourColumnTableProps = {
   tableTitle: string;
@@ -102,7 +103,7 @@ export default function FourColumnTable({ tableTitle }: FourColumnTableProps) {
                       {column.id === 'name' ? (
                         <Typography variant="body2">{row.name}</Typography>
                       ) : column.id === 'progress' ? (
-                        <Typography variant="body2">{row.progress}%</Typography>
+                        <ProgressValue value={row.progress}/>
                       ) : column.id === 'action' ? (
                         <IconButton onClick={() => handleDelete(rowIndex)}>
                           <Delete />

@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import { Adb, Add, Apple, Window, Delete } from '@mui/icons-material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Box, Button, IconButton, styled, Typography } from '@mui/material';
+import ProgressValue from './ProgressValue/ProgressValue';
 
 type DevelopmentTableProps = {
   tableTitle: string;
@@ -132,10 +133,7 @@ export default function DevelopmentTable({ tableTitle }: DevelopmentTableProps) 
                           </React.Fragment>
                         ))
                       ) : column.id === 'progress' ? (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                          <Typography>{row.progress}%</Typography>
-                          <BorderLinearProgress variant="determinate" sx={{ width: '80px' }} value={row.progress} />
-                        </Box>
+                        <ProgressValue value={row.progress} showProgressBar={true}/>
                       ) : column.id === 'action' ? (
                         <IconButton onClick={() => handleDelete(rowIndex)}>
                           <Delete />
