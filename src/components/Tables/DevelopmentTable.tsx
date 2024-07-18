@@ -1,6 +1,7 @@
 'use client'
 
-import * as React from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,8 +9,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Adb, Add, Apple, Window, Delete } from '@mui/icons-material';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { Box, Button, IconButton, styled, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
+import { RootState } from '@/utils/redux/store'; 
+import { removeDevelopmentTableData } from '@/utils/redux/reducers/developmentTableSlice'
 import ProgressValue from './ProgressValue/ProgressValue';
 
 type DevelopmentTableProps = {
@@ -22,7 +24,7 @@ interface Column {
   minWidth?: number;
   align?: 'left' | 'center' | 'right';
   format?: (value: any) => string;
-};
+}
 
 const columns: readonly Column[] = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -49,55 +51,18 @@ const columns: readonly Column[] = [
   { id: 'action', label: 'Action', minWidth: 170, align: 'center' },
 ];
 
-interface Data {
-  name: string;
-  tech: ('apple' | 'android' | 'windows')[];
-  date: number;
-  progress: number;
-};
-
-function createData(
-  name: string,
-  tech: ('apple' | 'android' | 'windows')[],
-  date: number,
-  progress: number
-): Data {
-  return { name, tech, date, progress };
-};
-
-const rows: Data[] = [
-  createData('Project Alpha', ['apple', 'android', 'windows'], Date.parse('2023-05-01'), 75.3),
-  createData('Project Beta', ['apple'], Date.parse('2023-06-15'), 50.4),
-  createData('Project Gamma', ['apple', 'windows'], Date.parse('2023-07-20'), 90.7),
-  createData('Project Delta', ['apple', 'android', 'windows'], Date.parse('2023-08-10'), 65.8),
-  createData('Project Epsilon', ['apple', 'windows'], Date.parse('2023-09-05'), 85.6),
-  createData('Project Zeta', ['apple', 'android', 'windows'], Date.parse('2023-10-12'), 40.3),
-];
-
-const techIcons = {
-  apple: <Apple fontSize="small" />,
+const techIcons: { [key: string]: JSX.Element } = {
+  ios: <Apple fontSize="small" />,
   android: <Adb fontSize="small" />,
   windows: <Window fontSize="small" />,
 };
 
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 7,
-  borderRadius: 10,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 10,
-    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
-  },
-}));
-
 export default function DevelopmentTable({ tableTitle }: DevelopmentTableProps) {
-  const [tableRows, setTableRows] = React.useState(rows);
+  const dispatch = useDispatch();
+  const tableRows = useSelector((state: RootState) => state.developmentTable.data);
 
   const handleDelete = (index: number) => {
-    const newRows = tableRows.filter((_, i) => i !== index);
-    setTableRows(newRows);
+    dispatch(removeDevelopmentTableData(index));
   };
 
   return (
@@ -121,19 +86,19 @@ export default function DevelopmentTable({ tableTitle }: DevelopmentTableProps) 
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableRows.map((row, rowIndex) => (
+              {tableRows.map((row: any, rowIndex: number) => (
                 <TableRow hover role="checkbox" tabIndex={-1} key={rowIndex}>
                   {columns.map((column) => (
                     <TableCell key={column.id} align={column.align}>
                       {column.id === 'tech' && Array.isArray(row.tech) ? (
-                        row.tech.map((tech, index) => (
+                        row.tech.map((tech: string, index: number) => (
                           <React.Fragment key={index}>
                             {index > 0 && ' '}
                             {techIcons[tech]}
                           </React.Fragment>
                         ))
                       ) : column.id === 'progress' ? (
-                        <ProgressValue value={row.progress} showProgressBar={true}/>
+                        <ProgressValue value={row.progress} showProgressBar={true} />
                       ) : column.id === 'action' ? (
                         <IconButton onClick={() => handleDelete(rowIndex)}>
                           <Delete />
@@ -153,4 +118,4 @@ export default function DevelopmentTable({ tableTitle }: DevelopmentTableProps) 
       </Box>
     </>
   );
-};
+}
