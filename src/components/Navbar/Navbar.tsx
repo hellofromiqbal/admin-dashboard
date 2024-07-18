@@ -56,7 +56,7 @@ export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1, position: 'sticky', top: '0px', zIndex: '3' }}>
       <AppBar position="static" sx={{ p: '20px', backgroundColor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(30px)', boxShadow: 'none', color: 'black' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: '10px', md: 0 }, justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: '12px' }}>
               <Link  underline="hover" color="inherit" href="/">
@@ -80,7 +80,7 @@ export default function Navbar() {
             </Typography>
           </Box>
           <Box sx={{ p: '10px', borderRadius: '30px', display: 'flex', alignItems: 'center', gap: '10px', bgcolor: 'white', boxShadow: 'rgba(112, 144, 176, 0.18) 14px 17px 40px 4px' }}>
-            <Search sx={{ borderRadius: '30px', bgcolor: '#f5f9fe' }}>
+            <Search sx={{ flexGrow: 1, borderRadius: '30px', bgcolor: '#f5f9fe' }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -89,11 +89,13 @@ export default function Navbar() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-            <NotificationsOutlined fontSize='small' sx={{ cursor: 'pointer' }}/>
-            <InfoOutlined fontSize='small' sx={{ cursor: 'pointer' }}/>
-            <Palette fontSize='small' sx={{ cursor: 'pointer' }}/>
-            <Box sx={{ width: '40px', height: '40px', borderRadius: '100%', bgcolor: 'blue', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-              <Typography variant="subtitle2">AP</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <NotificationsOutlined fontSize='small' sx={{ cursor: 'pointer' }}/>
+              <InfoOutlined fontSize='small' sx={{ cursor: 'pointer' }}/>
+              <Palette fontSize='small' sx={{ cursor: 'pointer' }}/>
+              <Box sx={{ width: '40px', height: '40px', borderRadius: '100%', bgcolor: 'blue', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+                <Typography variant="subtitle2">AP</Typography>
+              </Box>
             </Box>
           </Box>
         </Box>

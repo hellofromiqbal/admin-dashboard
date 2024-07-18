@@ -14,10 +14,10 @@ export default function Home() {
   const modalVisibility = useSelector((state: RootState) => state.modalVisibility.visibility);
 
   return (
-    <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: { xs: 0, md: '20px' } }}>
       {modalVisibility && <Modal/>}
       <Navbar/>
-      <Box sx={{ p: '20px', display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: '20px' }}>
+      <Box sx={{ px: '20px', pt: '20px', pb: { xs: '100px', md: '20px' }, display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: '20px' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', overflow: 'auto', minHeight: '500px', borderRadius: '20px', p: '20px', bgcolor: '#fff' }}>
           <DevelopmentTable tableTitle="Development Table"/>
         </Box>

@@ -6,6 +6,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { Box, CssBaseline } from '@mui/material';
 import SideBar from "@/components/SideBar/SideBar";
 import ReduxProvider from "@/utils/redux/ReduxProvider";
+import MobileNavbar from "@/components/Navbar/MobileNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,12 +26,15 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ReduxProvider>
             <Box sx={{ display: 'flex' }}>
-              <Box sx={{ position: 'sticky', top: 0, width: { xs: 0, lg: '300px' }, height: '100vh' }}>
+              <Box sx={{ display: { xs: 'none', lg: 'flex' }, position: 'sticky', top: 0, width: { xs: 0, lg: '300px' }, height: '100vh' }}>
                 <SideBar/>
               </Box>
               <Box sx={{ width: { xs: '100%', lg: 'calc(100vw - 300px)' }, minHeight: '100vh', bgcolor: '#f4f8fe'}}>
                 {children}
               </Box>
+            </Box>
+            <Box sx={{ display: { xs: 'block', lg: 'none' }, width: '100%', position: 'fixed', bottom: 0, zIndex: 3 }}>
+              <MobileNavbar/>
             </Box>
           </ReduxProvider>
         </AppRouterCacheProvider>
